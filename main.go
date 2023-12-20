@@ -39,6 +39,24 @@ func main() {
 	if err != nil {
 		fmt.Println("error:", err)
 	}
+
+	fmt.Println("\n Below are all the Google Trends for today:")
+
+	for i := range r.Channel.ItemList {
+		rank := (i + 1)
+		fmt.Println("#", rank)
+		fmt.Println("Search Term:", r.Channel.ItemList[i].Title)
+		fmt.Println("Link to the Trend:", r.Channel.ItemList[i].Link)
+		fmt.Println("––––")
+		for j := range r.Channel.ItemList[i].NewsItems {
+			fmt.Println("Headline:", r.Channel.ItemList[i].NewsItems[j].Headline)
+			fmt.Println("Headline Link:", r.Channel.ItemList[i].NewsItems[j].HeadlineLink)
+			if (j + 1) < len(r.Channel.ItemList[i].NewsItems) {
+				fmt.Println("––––")
+			}
+		}
+		fmt.Println("––––––––––––––––––––––––––––––––––––––––––––––––––––")
+	}
 }
 
 func getGoogleTrends() *http.Response {
